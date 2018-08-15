@@ -1,0 +1,36 @@
+import numpy as np
+from scipy.fftpack import fft, fftshift
+import math
+def testRealEven(x):
+    """
+    Inputs:
+        x (numpy array)= input signal of length M (M is odd)
+    Output:
+        The function returns a tuple (isRealEven, dftbuffer, X)
+        isRealEven (boolean) = True if the input x is real and even, and False otherwise
+        dftbuffer (numpy array, possibly complex) = The M point zero phase windowed version of x 
+        X (numpy array, possibly complex) = The M point DFT of dftbuffer 
+    """
+    ## Your code here
+    M = len(x)
+    hM1 = int(math.floor((M+1)/2))
+    hM2 = int(math.floor(M/2))
+
+    fftbuffer = np.zeros(M)
+    fftbuffer[:hM1] = x[hM2:]
+    fftbuffer[M-hM2:] = x[:hM2]
+    X = fft(fftbuffer)
+
+    Xreal = abs(X)
+    isRealEven = bool(1)
+    for i in range (1, (M-1)/2):
+        if Xreal[i] != Xreal[M-i]:
+           isRealEven = bool(0)
+           break
+    for i in range (0, M-1):
+        if np.imag(X[i]) > 1e-6:
+           isRealEven = bool(0)
+           break
+
+    return(isRealEven, fftbuffer, X)
+
