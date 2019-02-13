@@ -2,7 +2,7 @@
 # (for example usage check the models_interface directory)
 
 import numpy as np
-from scipy.signal import blackmanharris, triang
+from scipy.signal.windows import blackmanharris, triang
 from scipy.fftpack import ifft
 import math
 import dftModel as DFT

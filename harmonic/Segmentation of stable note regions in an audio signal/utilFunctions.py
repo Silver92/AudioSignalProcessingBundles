@@ -1,5 +1,6 @@
 import numpy as np
-from scipy.signal import resample, blackmanharris, triang
+from scipy.signal.windows import resample, blackmanharris, triang
+import scipy.signal
 from scipy.fftpack import fft, ifft, fftshift
 import math, copy, sys, os
 from scipy.io.wavfile import write, read
@@ -7,14 +8,14 @@ sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), './uti
 try:
 	import utilFunctions_C as UF_C
 except ImportError:
-	print "\n"
-	print "-------------------------------------------------------------------------------"
-	print "Warning:"
-	print "Cython modules for some of the core functions were not imported."
-	print "Please refer to the README file for the instructions to compile the cython modules"
-	print "Exiting the code!!"
-	print "-------------------------------------------------------------------------------"
-	print "\n"
+	print ("\n")
+	print ("-------------------------------------------------------------------------------")
+	print ("Warning:")
+	print ("Cython modules for some of the core functions were not imported.")
+	print ("Please refer to the README file for the instructions to compile the cython modules")
+	print ("Exiting the code!!")
+	print ("-------------------------------------------------------------------------------")
+	print ("\n")
 	sys.exit(0)
 
 def isPower2(num):
@@ -321,7 +322,7 @@ def sineSubtraction(x, N, H, sfreq, smag, sphase, fs):
 	hN = N/2                                           # half of fft size
 	x = np.append(np.zeros(hN),x)                      # add zeros at beginning to center first window at sample 0
 	x = np.append(x,np.zeros(hN))                      # add zeros at the end to analyze last sample
-	bh = blackmanharris(N)                             # blackman harris window
+	bh = blackmanharris(N)                      	   # blackman harris window
 	w = bh/ sum(bh)                                    # normalize window
 	sw = np.zeros(N)                                   # initialize synthesis window
 	sw[hN-H:hN+H] = triang(2*H) / w[hN-H:hN+H]         # synthesis window

@@ -51,7 +51,7 @@ def minFreqEstErr(inputFile='sine-440.wav', f=440):
         iploc, ipmag, ipphase = UF.peakInterp(mX, pX, ploc)
         fEst = fs*iploc[0]/float(N)
         if abs(fEst-f) < 0.05:
-            break;
+            break
         else:
             k += 1
 

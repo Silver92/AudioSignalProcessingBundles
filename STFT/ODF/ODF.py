@@ -10,7 +10,7 @@ import utilFunctions as UF
 eps = np.finfo(float).eps
 
 import time
-from scipy.signal import hamming
+from scipy.signal.windows import hamming
 from scipy.fftpack import fft
 
 """
