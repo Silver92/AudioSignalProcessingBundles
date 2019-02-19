@@ -69,7 +69,10 @@ def stftAnal(x, fs, w, N, H) :
 def stftSynth(mY, pY, M, H) :
 	"""
 	Synthesis of a sound using the short-time Fourier transform
-	mY: magnitude spectra, pY: phase spectra, M: window size, H: hop-size
+	mY: magnitude spectra, 
+	pY: phase spectra,
+	M: window size, 
+	H: hop-size
 	returns y: output sound
 	"""
 	hM1 = int(math.floor((M+1)/2))                   # half analysis window size by rounding

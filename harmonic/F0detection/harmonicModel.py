@@ -116,10 +116,10 @@ def harmonicModel(x, fs, w, N, t, nH, minf0, maxf0, f0et):
 	w = w / sum(w)                                          # normalize analysis window
 	sw = np.zeros(Ns)                                       # initialize synthesis window
 	ow = triang(2*H)                                        # overlapping window
-	sw[hNs-H:hNs+H] = ow      
+	sw[int(hNs-H):int(hNs+H)] = int(ow)      
 	bh = blackmanharris(Ns)                                 # synthesis window
 	bh = bh / sum(bh)                                       # normalize synthesis window
-	sw[hNs-H:hNs+H] = sw[hNs-H:hNs+H] / bh[hNs-H:hNs+H]     # window for overlap-add
+	sw[int(hNs-H):int(hNs+H)] = sw[int(hNs-H):int(hNs+H)] / bh[int(hNs-H):int(hNs+H)]     # window for overlap-add
 	hfreqp = []
 	f0t = 0
 	f0stable = 0
@@ -141,8 +141,8 @@ def harmonicModel(x, fs, w, N, t, nH, minf0, maxf0, f0et):
 	#-----synthesis-----
 		Yh = UF.genSpecSines(hfreq, hmag, hphase, Ns, fs)     # generate spec sines          
 		fftbuffer = np.real(ifft(Yh))                         # inverse FFT
-		yh[:hNs-1] = fftbuffer[hNs+1:]                        # undo zero-phase window
-		yh[hNs-1:] = fftbuffer[:hNs+1] 
+		yh[:int(hNs-1)] = fftbuffer[int(hNs+1):]                        # undo zero-phase window
+		yh[int(hNs-1):] = fftbuffer[:int(hNs+1)] 
 		y[pin-hNs:pin+hNs] += sw*yh                           # overlap-add
 		pin += H                                              # advance sound pointer
 	y = np.delete(y, range(hM2))                            # delete half of first window which was added in stftAnal
